@@ -24,7 +24,7 @@ app.use(logger);
 app.get('/', (req, res) => {
   res.json({
     message: 'Welcome to my To-do List API!',
-    student: 'GABRIEL',
+    student: 'Gabriel Chukwuemeka Victor',
     theme: 'To-do List'
   });
 });
