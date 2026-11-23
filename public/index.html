@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f4f0">
+  <title>Daybook — Make room for what matters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/app/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="/app" aria-label="Daybook home">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span>daybook<span class="brand-period">.</span></span>
+      </a>
+
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="primary-nav" aria-label="Task views">
+        <button class="nav-link active" type="button" data-status="all">
+          <span class="nav-icon icon-inbox"></span><span>All tasks</span><span class="nav-count" id="all-count">0</span>
+        </button>
+        <button class="nav-link" type="button" data-status="pending">
+          <span class="nav-icon icon-circle"></span><span>In progress</span><span class="nav-count" id="pending-count">0</span>
+        </button>
+        <button class="nav-link" type="button" data-status="completed">
+          <span class="nav-icon icon-check"></span><span>Completed</span>
+        </button>
+      </nav>
+
+      <div class="section-heading">
+        <span class="workspace-label">YOUR CATEGORIES</span>
+        <button class="icon-button add-category-trigger" type="button" aria-label="Add category" title="Add category">+</button>
+      </div>
+      <nav class="category-nav" id="category-nav" aria-label="Categories"></nav>
+
+      <div class="sidebar-bottom">
+        <div class="focus-card">
+          <div class="focus-orbit"><span></span></div>
+          <p class="focus-kicker">A little reminder</p>
+          <p class="focus-copy">Progress over perfection. One thing at a time.</p>
+        </div>
+        <div class="profile">
+          <div class="avatar">G</div>
+          <div class="profile-copy"><strong>Good things ahead</strong><span>Your personal space</span></div>
+          <span class="online-dot" aria-label="Online"></span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu icon-button" id="menu-toggle" type="button" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="breadcrumb"><span>Workspace</span><span class="crumb-slash">/</span><strong id="view-label">All tasks</strong></div>
+        <div class="topbar-actions">
+          <label class="search-box" for="task-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+            <input id="task-search" type="search" placeholder="Search anything..." autocomplete="off">
+            <kbd>⌘ K</kbd>
+          </label>
+          <button class="top-add-button" id="new-task-top" type="button"><span>+</span> New task</button>
+        </div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="welcome-row">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span><span id="today-label"></span></p>
+            <h1>Make room for<br><em>what matters.</em></h1>
+            <p class="welcome-subtitle">A clear mind starts with a clear plan. You've got this.</p>
+          </div>
+          <div class="welcome-art" aria-hidden="true">
+            <div class="art-sun"></div><div class="art-window"><div class="art-pane"></div><div class="art-plant"><i></i><i></i><i></i><b></b></div></div>
+            <div class="art-sparkle sparkle-one">✳</div><div class="art-sparkle sparkle-two">✦</div>
+          </div>
+        </section>
+
+        <section class="stats-grid" aria-label="Task summary">
+          <article class="stat-card stat-total">
+            <div class="stat-top"><span class="stat-label">Total tasks</span><span class="stat-icon total-icon">◫</span></div>
+            <div class="stat-value" id="total-stat">—</div>
+            <div class="stat-foot"><span class="stat-dot"></span>Everything on your plate</div>
+          </article>
+          <article class="stat-card stat-progress">
+            <div class="stat-top"><span class="stat-label">In progress</span><span class="stat-icon progress-icon">◷</span></div>
+            <div class="stat-value" id="pending-stat">—</div>
+            <div class="stat-foot"><span class="stat-dot"></span>One step at a time</div>
+          </article>
+          <article class="stat-card stat-done">
+            <div class="stat-top"><span class="stat-label">Completed</span><span class="stat-icon done-icon">✓</span></div>
+            <div class="stat-value" id="completed-stat">—</div>
+            <div class="stat-foot"><span class="stat-dot"></span><span id="completion-copy">Look at you go</span></div>
+          </article>
+          <article class="stat-card stat-progress-card">
+            <div class="stat-top"><span class="stat-label">Your progress</span><span class="progress-number" id="progress-number">0%</span></div>
+            <div class="progress-track"><span id="progress-bar"></span></div>
+            <div class="stat-foot">Keep your momentum going</div>
+          </article>
+        </section>
+
+        <section class="tasks-section">
+          <div class="tasks-heading">
+            <div><p class="section-eyebrow">YOUR DAY, YOUR PACE</p><h2 id="tasks-heading">Today’s focus<span class="heading-dot">.</span></h2></div>
+            <button class="new-task-button" id="new-task-main" type="button"><span>+</span> Add a task</button>
+          </div>
+          <div class="active-filters" id="active-filters" hidden></div>
+          <div class="task-list" id="task-list" aria-live="polite"></div>
+        </section>
+
+        <footer class="page-footer"><span>Made for a more intentional day</span><span class="footer-spark">✳</span></footer>
+      </div>
+    </main>
+  </div>
+
+  <div class="sidebar-scrim" id="sidebar-scrim"></div>
+
+  <dialog class="modal" id="task-modal">
+    <form id="task-form" class="modal-form">
+      <input id="task-id" name="taskId" type="hidden">
+      <div class="modal-heading"><div><p class="section-eyebrow" id="task-modal-kicker">MAKE IT HAPPEN</p><h2 id="task-modal-title">A new task<span class="heading-dot">.</span></h2></div><button class="modal-close" type="button" data-close="task-modal" aria-label="Close">×</button></div>
+      <label class="field-label" for="task-title">Task name</label>
+      <input class="form-control" id="task-title" name="title" maxlength="120" placeholder="What would you like to do?" required>
+      <label class="field-label" for="task-description">A few details</label>
+      <textarea class="form-control textarea" id="task-description" name="description" rows="3" maxlength="500" placeholder="Add a note or a little context..." required></textarea>
+      <div class="field-row">
+        <div class="field-group"><label class="field-label" for="task-priority">Priority</label><select class="form-control" id="task-priority" name="priority" required><option>Low</option><option selected>Medium</option><option>High</option></select></div>
+        <div class="field-group"><label class="field-label" for="task-category">Category</label><select class="form-control" id="task-category" name="category" required></select></div>
+      </div>
+      <label class="completion-check"><input id="task-done" name="done" type="checkbox"><span class="custom-check"></span><span>Mark as completed</span></label>
+      <div class="modal-actions"><button class="button-quiet" type="button" data-close="task-modal">Cancel</button><button class="button-primary" id="save-task" type="submit">Create task <span>↗</span></button></div>
+    </form>
+  </dialog>
+
+  <dialog class="modal category-modal" id="category-modal">
+    <form id="category-form" class="modal-form">
+      <div class="modal-heading"><div><p class="section-eyebrow">MAKE IT YOURS</p><h2>New category<span class="heading-dot">.</span></h2></div><button class="modal-close" type="button" data-close="category-modal" aria-label="Close">×</button></div>
+      <label class="field-label" for="category-name">Category name</label><input class="form-control" id="category-name" name="name" maxlength="40" placeholder="e.g. Creative work" required>
+      <label class="field-label" for="category-description">Description</label><textarea class="form-control textarea" id="category-description" name="description" rows="3" maxlength="200" placeholder="What belongs in this space?" required></textarea>
+      <div class="modal-actions"><button class="button-quiet" type="button" data-close="category-modal">Cancel</button><button class="button-primary" id="save-category" type="submit">Create category <span>↗</span></button></div>
+    </form>
+  </dialog>
+
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+  <script src="/app/script.js" defer></script>
+</body>
+</html>
